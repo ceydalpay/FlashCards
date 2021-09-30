@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="style.css">
+  <title>Flashcard App</title>
+</head>
+<body class="text-center bg-pink-100">
+  <div id="flashcard-app" class="max-w-full p-8" class="container">
+
+    <h1 class="font-bold mr-2.5">Flashcard App!</h1>
+
+    <div class="flashcard-form">
+      <label class="font-bold mr-2.5" for="question">Question
+        <input class="rounded-md border-solid" v-model="newQuestion" type="text" id="question">
+      </label>
+      <label class="font-bold mr-2.5" for="answer">Answer
+        <input class="rounded-md border-solid" v-on:keypress.enter="addNew" v-model="newAnswer" type="text" id="answer">
+      </label>
+      <button class="bg-yellow-200 text-white font-bold py-2 px-4 rounded" v-on:click="addNew">Add a New Card</button>
+      <span class="error" v-show="error">Oops! Flashcards need a front and a back.</span>
+    </div>
+
+    <ul class="pl-0 flex "  class="flashcard-list">
+      <li class="pt-2.5" v-for="(card, index) in cards" v-on:click="toggleCard(card)">
+        <transition name="flip" class="duration-500">
+          <p class="break-all block w-36 h-44 pr-5 pl-3 bg-purple-300 rounded-lg m-1.5 text-white text-center leading-7 cursor-pointer relative font-semibold text-xl" class="card" v-if="!card.flipped" key="question">
+            {{card.question}}
+          </p>
+          <p class="break-all block w-36 h-44 pr-5 pl-3 bg-green-300 rounded-lg m-1.5 text-white text-center leading-7 cursor-pointer relative font-semibold text-xl" class="card" v-else key="answer">
+            {{card.answer}}
+          </p>
+        </transition>
+      </li>
+    </ul>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.13/dist/vue.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
